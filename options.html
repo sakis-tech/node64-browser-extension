@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Node64 Browser Extension</title>
+<link rel="stylesheet" href="popup.css">
+<style>
+  body { width: auto; max-width: 620px; margin: 0 auto; padding: 24px 16px 40px; font-size: 14px; }
+  h1 { font-size: 20px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+  h1 img { border-radius: 8px; }
+  .lead { color: var(--muted); margin: 0 0 18px; }
+  .card { padding: 16px; margin-bottom: 14px; }
+  .card h2 { font-size: 12px; margin-bottom: 10px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; }
+  label:first-of-type { margin-top: 0; }
+  input[type=text], input[type=password], input[type=number] {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--text); font: inherit;
+  }
+  .hint { color: var(--muted); font-size: 12.5px; margin: 4px 0 0; }
+  .line { display: flex; gap: 8px; align-items: center; }
+  .line input { flex: 1; }
+  .check { display: flex; gap: 8px; align-items: center; font-weight: 400; margin: 8px 0 0; }
+  .result { margin-top: 8px; font-size: 13px; min-height: 1.4em; }
+  .result.ok { color: var(--up); } .result.bad { color: var(--down); }
+  .btn { padding: 7px 14px; font-size: 13px; }
+  footer { display: flex; align-items: center; gap: 12px; }
+  ol { margin: 6px 0 0; padding-left: 20px; color: var(--muted); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<h1><img src="icons/icon-48.png" width="32" height="32" alt=""> Node64 Browser Extension</h1>
+<p class="lead" data-i18n="optLead"></p>
+
+<section class="card">
+  <h2 data-i18n="optNodeTitle"></h2>
+  <label for="nodeUrl" data-i18n="optNodeUrl"></label>
+  <input type="text" id="nodeUrl" placeholder="http://raspberrypi.local:8080" autocomplete="off" spellcheck="false">
+  <label for="nodeKey" data-i18n="optNodeKey"></label>
+  <div class="line">
+    <input type="password" id="nodeKey" placeholder="node64_…" autocomplete="off" spellcheck="false">
+    <button class="btn" type="button" data-toggle="nodeKey" data-i18n="show"></button>
+  </div>
+  <p class="hint" data-i18n="optNodeKeyHint"></p>
+  <div class="btnrow"><button class="btn" type="button" id="testNode" data-i18n="test"></button></div>
+  <div class="result" id="nodeResult" role="status"></div>
+</section>
+
+<section class="card">
+  <h2 data-i18n="optCloudTitle"></h2>
+  <label for="ipv64Key" data-i18n="optCloudKey"></label>
+  <div class="line">
+    <input type="password" id="ipv64Key" autocomplete="off" spellcheck="false">
+    <button class="btn" type="button" data-toggle="ipv64Key" data-i18n="show"></button>
+  </div>
+  <p class="hint" data-i18n="optCloudHint"></p>
+  <div class="btnrow"><button class="btn" type="button" id="testCloud" data-i18n="test"></button></div>
+  <div class="result" id="cloudResult" role="status"></div>
+</section>
+
+<section class="card">
+  <h2 data-i18n="optBehaviour"></h2>
+  <label for="interval" data-i18n="optInterval"></label>
+  <input type="number" id="interval" min="1" max="60" step="1" style="max-width:110px">
+  <label class="check"><input type="checkbox" id="badge"> <span data-i18n="optBadge"></span></label>
+  <label class="check"><input type="checkbox" id="notify"> <span data-i18n="optNotify"></span></label>
+  <label class="check"><input type="checkbox" id="notifyUp"> <span data-i18n="optNotifyUp"></span></label>
+</section>
+
+<footer>
+  <button class="btn primary" type="button" id="save" data-i18n="save"></button>
+  <span class="result" id="saveResult" role="status" style="margin:0"></span>
+</footer>
+<p class="hint" style="margin-top:18px" data-i18n="optPrivacy"></p>
+
+<script src="lib/api.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

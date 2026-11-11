@@ -1,0 +1,395 @@
+{
+  "extName": {
+    "message": "Node64 Browser Extension"
+  },
+  "extDescription": {
+    "message": "Inoffizielles Addon für Node64 und ipv64.net: Healthchecks, DNS64-Filter, DynDNS und Modulstatus direkt im Browser."
+  },
+  "tabOverview": {
+    "message": "Übersicht"
+  },
+  "tabChecks": {
+    "message": "Checks"
+  },
+  "tabDns": {
+    "message": "DNS64"
+  },
+  "tabDyndns": {
+    "message": "DynDNS"
+  },
+  "openUi": {
+    "message": "Node64 öffnen"
+  },
+  "refresh": {
+    "message": "Aktualisieren"
+  },
+  "settings": {
+    "message": "Einstellungen"
+  },
+  "notConfiguredTitle": {
+    "message": "Noch nicht eingerichtet"
+  },
+  "notConfiguredText": {
+    "message": "Trage in den Einstellungen die Adresse deiner Node64 und einen API-Key ein."
+  },
+  "openSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "errorNetwork": {
+    "message": "Node nicht erreichbar (Netzwerk, Adresse oder Zertifikat prüfen)."
+  },
+  "errorTimeout": {
+    "message": "Zeitüberschreitung – keine Antwort."
+  },
+  "errorAuth": {
+    "message": "API-Key ungültig oder abgelaufen."
+  },
+  "errorForbidden": {
+    "message": "Dieser API-Key darf das nicht."
+  },
+  "errorGeneric": {
+    "message": "Fehler: $1"
+  },
+  "tileDown": {
+    "message": "Checks gestört"
+  },
+  "tileUp": {
+    "message": "von $1 Checks ok"
+  },
+  "tileBlocked": {
+    "message": "DNS blockiert"
+  },
+  "tileIp": {
+    "message": "Öffentliche IPv4"
+  },
+  "modules": {
+    "message": "Module"
+  },
+  "moduleOff": {
+    "message": "ausgeschaltet"
+  },
+  "moduleRunning": {
+    "message": "läuft"
+  },
+  "moduleStopped": {
+    "message": "gestoppt"
+  },
+  "boardLine": {
+    "message": "$1 ok · $2 gestört"
+  },
+  "certsExpiring": {
+    "message": "Zertifikate mit Handlungsbedarf"
+  },
+  "daysLeft": {
+    "message": "noch $1 Tage"
+  },
+  "linkState": {
+    "message": "Verknüpfung"
+  },
+  "linkConnected": {
+    "message": "verbunden"
+  },
+  "linkDisconnected": {
+    "message": "nicht verbunden"
+  },
+  "account": {
+    "message": "ipv64.net-Konto"
+  },
+  "accountUser": {
+    "message": "Konto"
+  },
+  "uptime": {
+    "message": "läuft seit $1"
+  },
+  "noChecks": {
+    "message": "Keine Checks gefunden."
+  },
+  "search": {
+    "message": "Checks filtern …"
+  },
+  "countDown": {
+    "message": "$1 gestört"
+  },
+  "countDegraded": {
+    "message": "$1 teilweise"
+  },
+  "countUp": {
+    "message": "$1 ok"
+  },
+  "statePaused": {
+    "message": "pausiert"
+  },
+  "runNow": {
+    "message": "Jetzt prüfen"
+  },
+  "runShort": {
+    "message": "Prüfen"
+  },
+  "pause": {
+    "message": "Pause"
+  },
+  "resume": {
+    "message": "Weiter"
+  },
+  "needsNode": {
+    "message": "Dafür wird eine lokale Node64 gebraucht."
+  },
+  "dnsFilter": {
+    "message": "DNS-Filter"
+  },
+  "dnsActive": {
+    "message": "Blockieren ist aktiv"
+  },
+  "dnsPausedOpen": {
+    "message": "Pausiert bis zum Einschalten"
+  },
+  "dnsPausedUntil": {
+    "message": "Pausiert bis $1"
+  },
+  "dnsResume": {
+    "message": "Einschalten"
+  },
+  "dnsPauseFor": {
+    "message": "Pausieren:"
+  },
+  "dnsPauseOpen": {
+    "message": "unbegrenzt"
+  },
+  "toastPaused": {
+    "message": "Blockieren pausiert"
+  },
+  "toastResumed": {
+    "message": "Blockieren wieder aktiv"
+  },
+  "dnsQueries": {
+    "message": "Anfragen (24 h)"
+  },
+  "dnsBlockedN": {
+    "message": "$1 blockiert"
+  },
+  "dnsClients": {
+    "message": "Geräte"
+  },
+  "thisSite": {
+    "message": "Diese Seite"
+  },
+  "siteStats": {
+    "message": "$1 Anfragen im Log, davon $2 blockiert"
+  },
+  "siteNoQueries": {
+    "message": "Keine Anfragen im Log"
+  },
+  "allow": {
+    "message": "Freigeben"
+  },
+  "deny": {
+    "message": "Sperren"
+  },
+  "toastAllowed": {
+    "message": "$1 freigegeben"
+  },
+  "toastDenied": {
+    "message": "$1 gesperrt"
+  },
+  "recentBlocked": {
+    "message": "Zuletzt blockiert"
+  },
+  "noneBlocked": {
+    "message": "Nichts blockiert."
+  },
+  "flushCache": {
+    "message": "DNS-Cache leeren"
+  },
+  "toastFlushed": {
+    "message": "Cache geleert"
+  },
+  "openLog": {
+    "message": "Abfrage-Log öffnen"
+  },
+  "publicIp": {
+    "message": "Öffentliche Adressen"
+  },
+  "copy": {
+    "message": "Kopieren"
+  },
+  "toastCopied": {
+    "message": "Kopiert"
+  },
+  "cgnatHint": {
+    "message": "Hinweis: Der Anschluss sieht nach $1 aus – IPv4 ist von außen evtl. nicht erreichbar."
+  },
+  "checkedAt": {
+    "message": "Geprüft $1"
+  },
+  "checkNow": {
+    "message": "Jetzt prüfen"
+  },
+  "toastChecking": {
+    "message": "Prüfung läuft"
+  },
+  "targets": {
+    "message": "DynDNS-Ziele"
+  },
+  "noTargets": {
+    "message": "Keine Ziele angelegt."
+  },
+  "updateNow": {
+    "message": "Aktualisieren"
+  },
+  "toastUpdating": {
+    "message": "Update angestoßen"
+  },
+  "accountDomains": {
+    "message": "Domains im ipv64.net-Konto"
+  },
+  "noDomains": {
+    "message": "Keine Domains."
+  },
+  "notifyDownTitle": {
+    "message": "Check gestört"
+  },
+  "notifyUpTitle": {
+    "message": "Check wieder ok"
+  },
+  "menuAllow": {
+    "message": "Domain in DNS64 freigeben"
+  },
+  "menuDeny": {
+    "message": "Domain in DNS64 sperren"
+  },
+  "noDomain": {
+    "message": "Keine gültige Domain erkannt."
+  },
+  "optLead": {
+    "message": "Verbinde das Addon mit deiner Node64 und/oder deinem ipv64.net-Konto. Mindestens eines von beiden wird gebraucht."
+  },
+  "optNodeTitle": {
+    "message": "Lokale Node64"
+  },
+  "optNodeUrl": {
+    "message": "Adresse"
+  },
+  "optNodeKey": {
+    "message": "API-Key"
+  },
+  "optNodeKeyHint": {
+    "message": "In Node64 unter Einstellungen → API-Keys anlegen. Der Key beginnt mit node64_ und wird nur einmal angezeigt."
+  },
+  "optCloudTitle": {
+    "message": "ipv64.net-Konto (optional)"
+  },
+  "optCloudKey": {
+    "message": "ipv64.net-API-Key"
+  },
+  "optCloudHint": {
+    "message": "Zeigt Konto, Kontingente und Domains – auch unterwegs, wenn die Node nicht erreichbar ist."
+  },
+  "optBehaviour": {
+    "message": "Verhalten"
+  },
+  "optInterval": {
+    "message": "Abfrage-Intervall (Minuten)"
+  },
+  "optBadge": {
+    "message": "Anzahl gestörter Checks am Symbol anzeigen"
+  },
+  "optNotify": {
+    "message": "Benachrichtigen, wenn ein Check ausfällt"
+  },
+  "optNotifyUp": {
+    "message": "Auch benachrichtigen, wenn er wieder läuft"
+  },
+  "optPrivacy": {
+    "message": "Die Keys liegen nur lokal in diesem Browser. Das Addon spricht ausschließlich mit deiner Node64 und ipv64.net."
+  },
+  "show": {
+    "message": "Anzeigen"
+  },
+  "hide": {
+    "message": "Verbergen"
+  },
+  "test": {
+    "message": "Verbindung testen"
+  },
+  "testing": {
+    "message": "Teste …"
+  },
+  "save": {
+    "message": "Speichern"
+  },
+  "saved": {
+    "message": "Gespeichert."
+  },
+  "optNeedUrlKey": {
+    "message": "Adresse und API-Key der Node werden beide gebraucht."
+  },
+  "optNeedKey": {
+    "message": "Bitte einen API-Key eintragen."
+  },
+  "optBadUrl": {
+    "message": "Die Adresse ist ungültig."
+  },
+  "optNoPermission": {
+    "message": "Ohne Zugriff auf diese Adresse kann das Addon die Node nicht abfragen."
+  },
+  "optNodeOk": {
+    "message": "Verbunden mit $1 (Version $2) als $3."
+  },
+  "optCloudOk": {
+    "message": "Angemeldet als $1 (Tarif $2)."
+  },
+  "checkRunning": {
+    "message": "wird geprüft …"
+  },
+  "toastRunUp": {
+    "message": "$1: ok ($2)"
+  },
+  "toastRunBad": {
+    "message": "$1: $2"
+  },
+  "toastRunPending": {
+    "message": "$1: angestoßen, Ergebnis steht noch aus"
+  },
+  "toastCheckPaused": {
+    "message": "$1 pausiert"
+  },
+  "toastCheckResumed": {
+    "message": "$1 läuft wieder"
+  },
+  "dnsRemaining": {
+    "message": "noch $1 min"
+  },
+  "ruleAllowed": {
+    "message": "Freigegeben"
+  },
+  "ruleDenied": {
+    "message": "Gesperrt"
+  },
+  "ruleNone": {
+    "message": "Keine eigene Regel"
+  },
+  "unallow": {
+    "message": "Freigabe entfernen"
+  },
+  "undeny": {
+    "message": "Sperre entfernen"
+  },
+  "toastUnallowed": {
+    "message": "Freigabe für $1 entfernt"
+  },
+  "toastUndenied": {
+    "message": "Sperre für $1 entfernt"
+  },
+  "updatedAt": {
+    "message": "Stand $1"
+  },
+  "toastRefreshed": {
+    "message": "Aktualisiert"
+  },
+  "connUp": {
+    "message": "Node erreichbar"
+  },
+  "connDown": {
+    "message": "Node nicht erreichbar"
+  }
+}

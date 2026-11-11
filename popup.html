@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Node64 Browser Extension</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <img src="icons/icon-48.png" width="28" height="28" alt="">
+  <div class="title">
+    <strong><span id="conn" class="conn"></span><span id="nodeName">Node64</span></strong>
+    <span id="nodeMeta"></span>
+  </div>
+  <button class="icon" id="btnOpen" data-i18n-title="openUi" hidden>
+    <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+  </button>
+  <button class="icon" id="btnRefresh" data-i18n-title="refresh">
+    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+  </button>
+  <button class="icon" id="btnOptions" data-i18n-title="settings">
+    <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+  </button>
+</header>
+<nav id="tabs" role="tablist">
+  <button role="tab" data-tab="overview" data-i18n="tabOverview"></button>
+  <button role="tab" data-tab="checks" data-i18n="tabChecks"></button>
+  <button role="tab" data-tab="dns" data-i18n="tabDns"></button>
+  <button role="tab" data-tab="dyndns" data-i18n="tabDyndns"></button>
+</nav>
+<div id="progress"></div>
+<main id="view"></main>
+<footer id="stamp"></footer>
+<div id="toast" role="status" hidden></div>
+<script src="lib/api.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

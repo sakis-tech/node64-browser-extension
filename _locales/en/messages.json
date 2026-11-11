@@ -1,0 +1,395 @@
+{
+  "extName": {
+    "message": "Node64 Browser Extension"
+  },
+  "extDescription": {
+    "message": "Unofficial add-on for Node64 and ipv64.net: health checks, DNS64 filter, DynDNS and module status right in your browser."
+  },
+  "tabOverview": {
+    "message": "Overview"
+  },
+  "tabChecks": {
+    "message": "Checks"
+  },
+  "tabDns": {
+    "message": "DNS64"
+  },
+  "tabDyndns": {
+    "message": "DynDNS"
+  },
+  "openUi": {
+    "message": "Open Node64"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "notConfiguredTitle": {
+    "message": "Not set up yet"
+  },
+  "notConfiguredText": {
+    "message": "Enter your Node64 address and an API key in the settings."
+  },
+  "openSettings": {
+    "message": "Open settings"
+  },
+  "errorNetwork": {
+    "message": "Cannot reach the node (check network, address or certificate)."
+  },
+  "errorTimeout": {
+    "message": "Timed out – no answer."
+  },
+  "errorAuth": {
+    "message": "API key invalid or expired."
+  },
+  "errorForbidden": {
+    "message": "This API key is not allowed to do that."
+  },
+  "errorGeneric": {
+    "message": "Error: $1"
+  },
+  "tileDown": {
+    "message": "checks down"
+  },
+  "tileUp": {
+    "message": "of $1 checks up"
+  },
+  "tileBlocked": {
+    "message": "DNS blocked"
+  },
+  "tileIp": {
+    "message": "Public IPv4"
+  },
+  "modules": {
+    "message": "Modules"
+  },
+  "moduleOff": {
+    "message": "disabled"
+  },
+  "moduleRunning": {
+    "message": "running"
+  },
+  "moduleStopped": {
+    "message": "stopped"
+  },
+  "boardLine": {
+    "message": "$1 ok · $2 down"
+  },
+  "certsExpiring": {
+    "message": "Certificates needing attention"
+  },
+  "daysLeft": {
+    "message": "$1 days left"
+  },
+  "linkState": {
+    "message": "Link"
+  },
+  "linkConnected": {
+    "message": "connected"
+  },
+  "linkDisconnected": {
+    "message": "not connected"
+  },
+  "account": {
+    "message": "ipv64.net account"
+  },
+  "accountUser": {
+    "message": "Account"
+  },
+  "uptime": {
+    "message": "up $1"
+  },
+  "noChecks": {
+    "message": "No checks found."
+  },
+  "search": {
+    "message": "Filter checks …"
+  },
+  "countDown": {
+    "message": "$1 down"
+  },
+  "countDegraded": {
+    "message": "$1 degraded"
+  },
+  "countUp": {
+    "message": "$1 up"
+  },
+  "statePaused": {
+    "message": "paused"
+  },
+  "runNow": {
+    "message": "Run now"
+  },
+  "runShort": {
+    "message": "Run"
+  },
+  "pause": {
+    "message": "Pause"
+  },
+  "resume": {
+    "message": "Resume"
+  },
+  "needsNode": {
+    "message": "This needs a local Node64."
+  },
+  "dnsFilter": {
+    "message": "DNS filter"
+  },
+  "dnsActive": {
+    "message": "Blocking is active"
+  },
+  "dnsPausedOpen": {
+    "message": "Paused until resumed"
+  },
+  "dnsPausedUntil": {
+    "message": "Paused until $1"
+  },
+  "dnsResume": {
+    "message": "Resume"
+  },
+  "dnsPauseFor": {
+    "message": "Pause for:"
+  },
+  "dnsPauseOpen": {
+    "message": "indefinitely"
+  },
+  "toastPaused": {
+    "message": "Blocking paused"
+  },
+  "toastResumed": {
+    "message": "Blocking resumed"
+  },
+  "dnsQueries": {
+    "message": "Queries (24 h)"
+  },
+  "dnsBlockedN": {
+    "message": "$1 blocked"
+  },
+  "dnsClients": {
+    "message": "Clients"
+  },
+  "thisSite": {
+    "message": "This site"
+  },
+  "siteStats": {
+    "message": "$1 queries in the log, $2 blocked"
+  },
+  "siteNoQueries": {
+    "message": "No queries in the log"
+  },
+  "allow": {
+    "message": "Allow"
+  },
+  "deny": {
+    "message": "Block"
+  },
+  "toastAllowed": {
+    "message": "$1 allowed"
+  },
+  "toastDenied": {
+    "message": "$1 blocked"
+  },
+  "recentBlocked": {
+    "message": "Recently blocked"
+  },
+  "noneBlocked": {
+    "message": "Nothing blocked."
+  },
+  "flushCache": {
+    "message": "Flush DNS cache"
+  },
+  "toastFlushed": {
+    "message": "Cache flushed"
+  },
+  "openLog": {
+    "message": "Open query log"
+  },
+  "publicIp": {
+    "message": "Public addresses"
+  },
+  "copy": {
+    "message": "Copy"
+  },
+  "toastCopied": {
+    "message": "Copied"
+  },
+  "cgnatHint": {
+    "message": "Note: this connection looks like $1 – IPv4 may not be reachable from outside."
+  },
+  "checkedAt": {
+    "message": "Checked $1"
+  },
+  "checkNow": {
+    "message": "Check now"
+  },
+  "toastChecking": {
+    "message": "Checking"
+  },
+  "targets": {
+    "message": "DynDNS targets"
+  },
+  "noTargets": {
+    "message": "No targets yet."
+  },
+  "updateNow": {
+    "message": "Update"
+  },
+  "toastUpdating": {
+    "message": "Update triggered"
+  },
+  "accountDomains": {
+    "message": "Domains in the ipv64.net account"
+  },
+  "noDomains": {
+    "message": "No domains."
+  },
+  "notifyDownTitle": {
+    "message": "Check down"
+  },
+  "notifyUpTitle": {
+    "message": "Check recovered"
+  },
+  "menuAllow": {
+    "message": "Allow domain in DNS64"
+  },
+  "menuDeny": {
+    "message": "Block domain in DNS64"
+  },
+  "noDomain": {
+    "message": "No valid domain found."
+  },
+  "optLead": {
+    "message": "Connect the add-on to your Node64 and/or your ipv64.net account. At least one of them is needed."
+  },
+  "optNodeTitle": {
+    "message": "Local Node64"
+  },
+  "optNodeUrl": {
+    "message": "Address"
+  },
+  "optNodeKey": {
+    "message": "API key"
+  },
+  "optNodeKeyHint": {
+    "message": "Create it in Node64 under Settings → API keys. The key starts with node64_ and is shown only once."
+  },
+  "optCloudTitle": {
+    "message": "ipv64.net account (optional)"
+  },
+  "optCloudKey": {
+    "message": "ipv64.net API key"
+  },
+  "optCloudHint": {
+    "message": "Shows account, quotas and domains – also on the go when the node is unreachable."
+  },
+  "optBehaviour": {
+    "message": "Behaviour"
+  },
+  "optInterval": {
+    "message": "Polling interval (minutes)"
+  },
+  "optBadge": {
+    "message": "Show number of failing checks on the icon"
+  },
+  "optNotify": {
+    "message": "Notify when a check goes down"
+  },
+  "optNotifyUp": {
+    "message": "Also notify when it recovers"
+  },
+  "optPrivacy": {
+    "message": "Keys are stored only locally in this browser. The add-on talks exclusively to your Node64 and ipv64.net."
+  },
+  "show": {
+    "message": "Show"
+  },
+  "hide": {
+    "message": "Hide"
+  },
+  "test": {
+    "message": "Test connection"
+  },
+  "testing": {
+    "message": "Testing …"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saved": {
+    "message": "Saved."
+  },
+  "optNeedUrlKey": {
+    "message": "Both node address and API key are required."
+  },
+  "optNeedKey": {
+    "message": "Please enter an API key."
+  },
+  "optBadUrl": {
+    "message": "The address is invalid."
+  },
+  "optNoPermission": {
+    "message": "Without access to this address the add-on cannot query the node."
+  },
+  "optNodeOk": {
+    "message": "Connected to $1 (version $2) as $3."
+  },
+  "optCloudOk": {
+    "message": "Signed in as $1 (plan $2)."
+  },
+  "checkRunning": {
+    "message": "checking …"
+  },
+  "toastRunUp": {
+    "message": "$1: up ($2)"
+  },
+  "toastRunBad": {
+    "message": "$1: $2"
+  },
+  "toastRunPending": {
+    "message": "$1: triggered, result still pending"
+  },
+  "toastCheckPaused": {
+    "message": "$1 paused"
+  },
+  "toastCheckResumed": {
+    "message": "$1 resumed"
+  },
+  "dnsRemaining": {
+    "message": "$1 min left"
+  },
+  "ruleAllowed": {
+    "message": "Allowed"
+  },
+  "ruleDenied": {
+    "message": "Blocked"
+  },
+  "ruleNone": {
+    "message": "No custom rule"
+  },
+  "unallow": {
+    "message": "Remove allow rule"
+  },
+  "undeny": {
+    "message": "Remove block rule"
+  },
+  "toastUnallowed": {
+    "message": "Allow rule for $1 removed"
+  },
+  "toastUndenied": {
+    "message": "Block rule for $1 removed"
+  },
+  "updatedAt": {
+    "message": "Updated $1"
+  },
+  "toastRefreshed": {
+    "message": "Refreshed"
+  },
+  "connUp": {
+    "message": "Node reachable"
+  },
+  "connDown": {
+    "message": "Node unreachable"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "background": {
+    "scripts": [
+      "lib/api.js",
+      "background.js"
+    ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "node64-browser-extension@sakis.tech",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}
