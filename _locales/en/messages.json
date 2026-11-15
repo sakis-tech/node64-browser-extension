@@ -391,5 +391,8 @@
   },
   "connDown": {
     "message": "Node unreachable"
+  },
+  "extVersion": {
+    "message": "Node64 Browser Extension – version $1"
   }
 }

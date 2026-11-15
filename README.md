@@ -24,10 +24,11 @@ Inoffizielles Browser-Addon für [Node64](https://github.com/ipv64net/node64) un
 
 ### Firefox (ab 128)
 
-Firefox braucht ein leicht anderes Manifest, deshalb zuerst `python3 scripts/build.py` ausführen.
+**[➜ Node64 Browser Extension bei Firefox Add-ons](https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/)** – dort auf **Zu Firefox hinzufügen** klicken. Updates kommen automatisch.
 
-- Zum Ausprobieren: `about:debugging#/runtime/this-firefox` → **Temporäres Add-on laden** → `dist/firefox/manifest.json` wählen (bis zum Neustart).
-- Dauerhaft: `dist/node64-browser-extension-<version>-firefox.zip` bei [addons.mozilla.org](https://addons.mozilla.org/developers/) als „selbst vertrieben“ signieren lassen (`npx web-ext sign --source-dir dist/firefox`).
+Aus dem Quellcode (für Entwicklung): Firefox braucht ein leicht anderes Manifest, deshalb zuerst `python3 scripts/build.py` ausführen, dann `about:debugging#/runtime/this-firefox` → **Temporäres Add-on laden** → `dist/firefox/manifest.json` wählen (gilt bis zum Neustart).
+
+Was sich in welcher Version geändert hat, steht im [Changelog](CHANGELOG.md).
 
 ## Einrichtung
 
@@ -35,7 +36,7 @@ Firefox braucht ein leicht anderes Manifest, deshalb zuerst `python3 scripts/bui
 2. In den Einstellungen des Addons Adresse (z. B. `http://raspberrypi.local:8080`) und Key eintragen, **Verbindung testen**, **Speichern**. Der Browser fragt dabei einmalig nach dem Zugriff auf genau diese Adresse.
 3. Optional einen API-Key von ipv64.net eintragen – dann zeigt das Addon Konto und Domains auch, wenn die Node nicht erreichbar ist.
 
-Läuft Node64 per HTTPS mit einem selbst signierten Zertifikat, muss der Browser diesem Zertifikat vertrauen, sonst schlägt die Abfrage fehl.
+Die Adresse darf `http://` oder `https://` sein. Läuft Node64 per HTTPS mit einem selbst signierten Zertifikat, muss der Browser diesem Zertifikat vertrauen, sonst schlägt die Abfrage fehl.
 
 ## Technik
 

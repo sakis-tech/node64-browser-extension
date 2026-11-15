@@ -85,6 +85,7 @@ async function save() {
 }
 
 async function init() {
+  $('extVersion').textContent = t('extVersion', chrome.runtime.getManifest().version);
   for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
   const cfg = await N64.getConfig();
   for (const k of ['nodeUrl', 'nodeKey', 'ipv64Key', 'interval']) $(k).value = cfg[k];

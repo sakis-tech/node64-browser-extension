@@ -538,7 +538,7 @@ async function refresh(showSkeleton) {
   applyFlash();
   const failed = nodes.length && nodes.every((n) => n.querySelector && n.querySelector(':scope > .err'));
   const stamp = document.getElementById('stamp');
-  stamp.textContent = t('updatedAt', new Date().toLocaleTimeString(LANG));
+  stamp.textContent = 'v' + EXT_VERSION + ' · ' + t('updatedAt', new Date().toLocaleTimeString(LANG));
   stamp.classList.remove('blink'); void stamp.offsetWidth; stamp.classList.add('blink');
   document.getElementById('conn').className = 'conn ' + (failed ? 'down' : 'up');
   document.getElementById('conn').title = t(failed ? 'connDown' : 'connUp');
@@ -552,7 +552,10 @@ function switchTab(name) {
   refresh(true);
 }
 
+const EXT_VERSION = chrome.runtime.getManifest().version;
+
 async function init() {
+  document.getElementById('stamp').textContent = 'v' + EXT_VERSION;
   for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
   for (const el of document.querySelectorAll('[data-i18n-title]')) { el.title = t(el.dataset.i18nTitle); el.setAttribute('aria-label', el.title); }
   if (new URLSearchParams(location.search).has('page')) document.body.classList.add('page');
