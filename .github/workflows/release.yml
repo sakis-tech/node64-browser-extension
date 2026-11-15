@@ -1,10 +1,12 @@
-# Legt bei jedem Versions-Tag (z. B. v0.2.3) einen GitHub-Release an:
-# baut die ZIPs mit scripts/build.py und nimmt den passenden Abschnitt aus CHANGELOG.md als Text.
+# Legt einen GitHub-Release an, sobald src/manifest.json eine Version hat, für die es noch keinen
+# Release gibt: baut die ZIPs mit scripts/build.py, erstellt den Tag v<Version> und nimmt den
+# passenden Abschnitt aus CHANGELOG.md als Text. Läuft bei jedem Push auf main (oder von Hand).
 name: Release
 
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,23 +17,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Version prüfen
+      - name: Gibt es den Release schon?
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
-          MANIFEST=$(python3 -c "import json;print(json.load(open('src/manifest.json'))['version'])")
-          if [ "$TAG" != "$MANIFEST" ]; then
-            echo "Tag v$TAG passt nicht zur Version $MANIFEST in src/manifest.json" >&2
-            exit 1
+          VERSION=$(python3 -c "import json;print(json.load(open('src/manifest.json'))['version'])")
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "Release v$VERSION gibt es schon – nichts zu tun."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          elif ! grep -q "^## $VERSION\b" CHANGELOG.md; then
+            echo "::warning::Kein Abschnitt '## $VERSION' im CHANGELOG.md – kein Release angelegt."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: ZIPs bauen
+        if: steps.check.outputs.new == 'true'
         run: python3 scripts/build.py
 
       - name: Release-Text aus dem Changelog
+        if: steps.check.outputs.new == 'true'
+        env:
+          TAG: ${{ steps.check.outputs.tag }}
         run: |
           python3 - <<'EOF'
           import os, re
-          version = os.environ["GITHUB_REF_NAME"].lstrip("v")
+          version = os.environ["TAG"].lstrip("v")
           text = open("CHANGELOG.md", encoding="utf-8").read()
           m = re.search(r"^## " + re.escape(version) + r"\b.*?$\n(.*?)(?=^## |\Z)", text, re.S | re.M)
           notes = (m.group(1).strip() if m else "Siehe CHANGELOG.md.") + """
@@ -47,6 +61,8 @@ jobs:
           EOF
 
       - name: Release anlegen
+        if: steps.check.outputs.new == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "$GITHUB_REF_NAME" --notes-file notes.md
+          TAG: ${{ steps.check.outputs.tag }}
+        run: gh release create "$TAG" dist/*.zip --target "$GITHUB_SHA" --title "$TAG" --notes-file notes.md
