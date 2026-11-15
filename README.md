@@ -93,6 +93,8 @@ npx web-ext lint --source-dir dist/firefox   # Prüfung für Firefox
 npx web-ext run --source-dir dist/firefox    # Firefox mit geladenem Addon starten
 ```
 
+**Neue Version veröffentlichen:** Version in `src/manifest.json` hochsetzen, Abschnitt im `CHANGELOG.md` ergänzen, dann einen Tag `v<Version>` pushen (z. B. `v0.2.3`). Der Workflow [`.github/workflows/release.yml`](.github/workflows/release.yml) baut die ZIPs und legt den Release mit dem Changelog-Text an. Passt der Tag nicht zur Version im Manifest, bricht er ab.
+
 Zum Entwickeln in Chrome direkt den Ordner `src/` als entpackte Erweiterung laden. Firefox braucht das zusammengesetzte Manifest, deshalb dort `dist/firefox/manifest.json` über **Temporäres Add-on laden** wählen.
 
 ## Lizenz

@@ -1,0 +1,52 @@
+# Legt bei jedem Versions-Tag (z. B. v0.2.3) einen GitHub-Release an:
+# baut die ZIPs mit scripts/build.py und nimmt den passenden Abschnitt aus CHANGELOG.md als Text.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version prüfen
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          MANIFEST=$(python3 -c "import json;print(json.load(open('src/manifest.json'))['version'])")
+          if [ "$TAG" != "$MANIFEST" ]; then
+            echo "Tag v$TAG passt nicht zur Version $MANIFEST in src/manifest.json" >&2
+            exit 1
+          fi
+
+      - name: ZIPs bauen
+        run: python3 scripts/build.py
+
+      - name: Release-Text aus dem Changelog
+        run: |
+          python3 - <<'EOF'
+          import os, re
+          version = os.environ["GITHUB_REF_NAME"].lstrip("v")
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          m = re.search(r"^## " + re.escape(version) + r"\b.*?$\n(.*?)(?=^## |\Z)", text, re.S | re.M)
+          notes = (m.group(1).strip() if m else "Siehe CHANGELOG.md.") + """
+
+          ### Installation
+
+          - **Firefox:** am besten über [Firefox Add-ons](https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/). Die ZIP unten lässt sich in Firefox nur vorübergehend laden (`about:debugging` → *Temporäres Add-on laden*).
+          - **Chrome, Edge, Brave:** `…-chrome.zip` herunterladen, entpacken, unter `chrome://extensions` den Entwicklermodus einschalten und *Entpackte Erweiterung laden* → entpackten Ordner wählen.
+
+          Ausführlich im [README](https://github.com/sakis-tech/node64-browser-extension#installation).
+          """
+          open("notes.md", "w", encoding="utf-8").write("\n".join(l.removeprefix("          ") for l in notes.splitlines()) + "\n")
+          EOF
+
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "$GITHUB_REF_NAME" --notes-file notes.md
