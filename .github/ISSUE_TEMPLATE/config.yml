@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Fragen zu Node64 selbst / Questions about Node64 itself
+    url: https://github.com/ipv64net/node64
+    about: Fehler in Node64 (nicht im Addon) bitte dort melden. / Please report bugs in Node64 (not the add-on) there.

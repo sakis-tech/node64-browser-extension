@@ -1,0 +1,52 @@
+name: Fehler melden / Report a bug
+description: Etwas funktioniert nicht wie erwartet. / Something doesn't work as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke fürs Melden! Bitte keine API-Keys, Passwörter oder öffentlichen IP-Adressen posten.
+        Thanks for reporting! Please don't post API keys, passwords or public IP addresses.
+  - type: textarea
+    id: was
+    attributes:
+      label: Was ist passiert? / What happened?
+      description: Was hast du gemacht, was hast du erwartet, was ist stattdessen passiert? / What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: schritte
+    attributes:
+      label: Schritte zum Nachstellen / Steps to reproduce
+      placeholder: |
+        1. Popup öffnen / Open the popup
+        2. Reiter DNS64 / DNS64 tab
+        3. …
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Firefox
+        - Chrome
+        - Edge
+        - Brave
+        - Anderer / Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version des Addons / Add-on version
+      description: Steht im Popup unten rechts. / Shown at the bottom right of the popup.
+      placeholder: "0.2.2"
+  - type: input
+    id: node64
+    attributes:
+      label: Node64-Version
+      description: Steht im Popup oben unter dem Namen der Node. / Shown at the top of the popup below the node name.
+  - type: textarea
+    id: fehlermeldung
+    attributes:
+      label: Fehlermeldung oder Screenshot / Error message or screenshot
+      description: Optional. Screenshots einfach hier hineinziehen. / Optional. Drag screenshots in here.

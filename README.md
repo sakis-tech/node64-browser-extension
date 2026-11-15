@@ -93,9 +93,17 @@ npx web-ext lint --source-dir dist/firefox   # Prüfung für Firefox
 npx web-ext run --source-dir dist/firefox    # Firefox mit geladenem Addon starten
 ```
 
-**Neue Version veröffentlichen:** Version in `src/manifest.json` hochsetzen und einen Abschnitt `## <Version>` im `CHANGELOG.md` ergänzen, dann auf `main` hochladen. Der Workflow [`.github/workflows/release.yml`](.github/workflows/release.yml) merkt, dass es für diese Version noch keinen Release gibt, baut die ZIPs und legt Tag und Release mit dem Changelog-Text an. Ohne passenden Changelog-Abschnitt legt er nichts an.
+**Issues und Fixes mit Claude:** `.github/workflows/claude-rueckfragen.yml` beantwortet neue Issues mit Rückfragen und setzt das Label `bereit-zum-fix`, sobald der Fehler klar ist. Das Label `claude-fix` startet `.github/workflows/claude-fix.yml`: Claude baut den Fix samt Version und Changelog und öffnet einen Pull Request. Nach dem Merge kümmert sich der Release-Workflow um den Rest. Regeln für Claude stehen in [`CLAUDE.md`](CLAUDE.md).
+
+**Neue Version veröffentlichen:** Version in `src/manifest.json` hochsetzen und einen Abschnitt `## <Version>` im `CHANGELOG.md` ergänzen, dann auf `main` hochladen. Der Workflow [`.github/workflows/release.yml`](.github/workflows/release.yml) merkt, dass es für diese Version noch keinen Release gibt, baut die ZIPs und legt Tag und Release mit dem Changelog-Text an und lädt die Firefox-Version zu Firefox Add-ons hoch (dafür die Secrets `AMO_JWT_ISSUER` und `AMO_JWT_SECRET`). Ohne passenden Changelog-Abschnitt legt er nichts an.
 
 Zum Entwickeln in Chrome direkt den Ordner `src/` als entpackte Erweiterung laden. Firefox braucht das zusammengesetzte Manifest, deshalb dort `dist/firefox/manifest.json` über **Temporäres Add-on laden** wählen.
+
+## Fehler melden und Wünsche
+
+Bitte über **[Issues](https://github.com/sakis-tech/node64-browser-extension/issues/new/choose)**. Ein automatischer Assistent (Claude) liest neue Issues und stellt Rückfragen, falls Angaben fehlen. Fixes werden erst nach Prüfung durch den Betreuer übernommen.
+
+Bitte keine API-Keys, Passwörter oder öffentlichen IP-Adressen in Issues posten.
 
 ## Lizenz
 

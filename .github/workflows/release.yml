@@ -1,6 +1,7 @@
 # Legt einen GitHub-Release an, sobald src/manifest.json eine Version hat, für die es noch keinen
 # Release gibt: baut die ZIPs mit scripts/build.py, erstellt den Tag v<Version> und nimmt den
-# passenden Abschnitt aus CHANGELOG.md als Text. Läuft bei jedem Push auf main (oder von Hand).
+# passenden Abschnitt aus CHANGELOG.md als Text. Lädt die Version danach zu Firefox Add-ons hoch.
+# Läuft bei jedem Push auf main (oder von Hand).
 name: Release
 
 on:
@@ -14,6 +15,9 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+      AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,6 +62,10 @@ jobs:
           Ausführlich im [README](https://github.com/sakis-tech/node64-browser-extension#installation).
           """
           open("notes.md", "w", encoding="utf-8").write("\n".join(l.removeprefix("          ") for l in notes.splitlines()) + "\n")
+          # Versionshinweise für Firefox Add-ons (nur der Changelog-Abschnitt, ohne Links auf die ZIPs)
+          import json
+          amo = {"version": {"release_notes": {"de": m.group(1).strip() if m else "Siehe CHANGELOG.md auf GitHub."}}}
+          open("amo.json", "w", encoding="utf-8").write(json.dumps(amo, ensure_ascii=False))
           EOF
 
       - name: Release anlegen
@@ -66,3 +74,18 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.check.outputs.tag }}
         run: gh release create "$TAG" dist/*.zip --target "$GITHUB_SHA" --title "$TAG" --notes-file notes.md
+
+      # Lädt dist/firefox als neue, öffentlich gelistete Version zu Firefox Add-ons hoch.
+      # Mozilla prüft sie danach noch; der Workflow wartet darauf nicht (approval-timeout 0).
+      # Läuft nur, wenn die Secrets AMO_JWT_ISSUER und AMO_JWT_SECRET gesetzt sind.
+      - name: Zu Firefox Add-ons hochladen
+        if: steps.check.outputs.new == 'true' && env.AMO_JWT_ISSUER != '' && env.AMO_JWT_SECRET != ''
+        run: >-
+          npx --yes web-ext@10 sign
+          --source-dir dist/firefox
+          --artifacts-dir web-ext-artifacts
+          --channel listed
+          --approval-timeout 0
+          --amo-metadata amo.json
+          --api-key "$AMO_JWT_ISSUER"
+          --api-secret "$AMO_JWT_SECRET"
