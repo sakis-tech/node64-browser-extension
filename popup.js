@@ -564,7 +564,7 @@ const RENDER = { overview: renderOverview, checks: renderChecks, dns: renderDns,
 function setHeader(n) {
   if (!n) return;
   document.getElementById('nodeName').textContent = n.name || 'Node64';
-  document.getElementById('nodeMeta').textContent = [n.version && 'v' + String(n.version).replace(/^v/, ''), n.uptime_seconds ? t('uptime', uptime(n.uptime_seconds)) : '', n.location].filter(Boolean).join(' · ');
+  document.getElementById('nodeMeta').textContent = [n.version && t('nodeVersion', String(n.version).replace(/^v/, '')), n.uptime_seconds ? t('uptime', uptime(n.uptime_seconds)) : '', n.location].filter(Boolean).join(' · ');
 }
 
 async function refresh(showSkeleton) {
@@ -590,7 +590,7 @@ async function refresh(showSkeleton) {
   applyFlash();
   const failed = nodes.length && nodes.every((n) => n.querySelector && n.querySelector(':scope > .err'));
   const stamp = document.getElementById('stamp');
-  stamp.textContent = 'v' + EXT_VERSION + ' · ' + t('updatedAt', new Date().toLocaleTimeString(LANG));
+  stamp.textContent = t('extVersionShort', EXT_VERSION) + ' · ' + t('updatedAt', new Date().toLocaleTimeString(LANG));
   stamp.classList.remove('blink'); void stamp.offsetWidth; stamp.classList.add('blink');
   document.getElementById('conn').className = 'conn ' + (failed ? 'down' : 'up');
   document.getElementById('conn').title = t(failed ? 'connDown' : 'connUp');
@@ -607,7 +607,7 @@ function switchTab(name) {
 const EXT_VERSION = chrome.runtime.getManifest().version;
 
 async function init() {
-  document.getElementById('stamp').textContent = 'v' + EXT_VERSION;
+  document.getElementById('stamp').textContent = t('extVersionShort', EXT_VERSION);
   for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
   for (const el of document.querySelectorAll('[data-i18n-title]')) { el.title = t(el.dataset.i18nTitle); el.setAttribute('aria-label', el.title); }
   if (new URLSearchParams(location.search).has('page')) document.body.classList.add('page');

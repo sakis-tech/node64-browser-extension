@@ -412,5 +412,11 @@
   },
   "extVersion": {
     "message": "Node64 Browser Extension – Version $1"
+  },
+  "nodeVersion": {
+    "message": "Node64 v$1"
+  },
+  "extVersionShort": {
+    "message": "Node64 Browser Extension v$1"
   }
 }

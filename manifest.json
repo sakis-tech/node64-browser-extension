@@ -3,7 +3,7 @@
   "name": "__MSG_extName__",
   "short_name": "Node64",
   "description": "__MSG_extDescription__",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "default_locale": "de",
   "icons": {
     "16": "icons/icon-16.png",
