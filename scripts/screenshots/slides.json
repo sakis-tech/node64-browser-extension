@@ -1,0 +1,306 @@
+[
+ {
+  "out": "store/chrome/de/screenshot-1.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "de",
+   "n": 1
+  }
+ },
+ {
+  "out": "store/chrome/de/screenshot-2.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "de",
+   "n": 2
+  }
+ },
+ {
+  "out": "store/chrome/de/screenshot-3.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "de",
+   "n": 3
+  }
+ },
+ {
+  "out": "store/chrome/de/screenshot-4.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "de",
+   "n": 4
+  }
+ },
+ {
+  "out": "store/chrome/de/screenshot-5.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "de",
+   "n": 5
+  }
+ },
+ {
+  "out": "store/chrome/de/promo-small-440x280.png",
+  "size": [
+   440,
+   280
+  ],
+  "query": {
+   "kind": "promo",
+   "lang": "de"
+  }
+ },
+ {
+  "out": "store/chrome/de/marquee-1400x560.png",
+  "size": [
+   1400,
+   560
+  ],
+  "query": {
+   "kind": "marquee",
+   "lang": "de"
+  }
+ },
+ {
+  "out": "store/firefox/de/screenshot-1.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "de",
+   "n": 1
+  }
+ },
+ {
+  "out": "store/firefox/de/screenshot-2.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "de",
+   "n": 2
+  }
+ },
+ {
+  "out": "store/firefox/de/screenshot-3.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "de",
+   "n": 3
+  }
+ },
+ {
+  "out": "store/firefox/de/screenshot-4.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "de",
+   "n": 4
+  }
+ },
+ {
+  "out": "store/firefox/de/screenshot-5.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "de",
+   "n": 5
+  }
+ },
+ {
+  "out": "store/chrome/en/screenshot-1.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "en",
+   "n": 1
+  }
+ },
+ {
+  "out": "store/chrome/en/screenshot-2.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "en",
+   "n": 2
+  }
+ },
+ {
+  "out": "store/chrome/en/screenshot-3.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "en",
+   "n": 3
+  }
+ },
+ {
+  "out": "store/chrome/en/screenshot-4.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "en",
+   "n": 4
+  }
+ },
+ {
+  "out": "store/chrome/en/screenshot-5.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "chrome",
+   "lang": "en",
+   "n": 5
+  }
+ },
+ {
+  "out": "store/chrome/en/promo-small-440x280.png",
+  "size": [
+   440,
+   280
+  ],
+  "query": {
+   "kind": "promo",
+   "lang": "en"
+  }
+ },
+ {
+  "out": "store/chrome/en/marquee-1400x560.png",
+  "size": [
+   1400,
+   560
+  ],
+  "query": {
+   "kind": "marquee",
+   "lang": "en"
+  }
+ },
+ {
+  "out": "store/firefox/en/screenshot-1.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "en",
+   "n": 1
+  }
+ },
+ {
+  "out": "store/firefox/en/screenshot-2.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "en",
+   "n": 2
+  }
+ },
+ {
+  "out": "store/firefox/en/screenshot-3.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "en",
+   "n": 3
+  }
+ },
+ {
+  "out": "store/firefox/en/screenshot-4.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "en",
+   "n": 4
+  }
+ },
+ {
+  "out": "store/firefox/en/screenshot-5.png",
+  "size": [
+   1280,
+   800
+  ],
+  "query": {
+   "kind": "shot",
+   "store": "firefox",
+   "lang": "en",
+   "n": 5
+  }
+ }
+]

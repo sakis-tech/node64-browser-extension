@@ -4,7 +4,14 @@ Inoffizielles Browser-Addon für [Node64](https://github.com/ipv64net/node64) un
 
 > Kein offizielles Projekt von IPv64.net. Node64 und IPv64.net sind Namen ihrer jeweiligen Inhaber.
 
-<img src="docs/screenshot.png" alt="Popup mit dem Reiter Checks (Testdaten)" width="320">
+<p>
+  <img src="docs/images/popup-overview.png" alt="Reiter Übersicht" width="200">
+  <img src="docs/images/popup-checks.png" alt="Reiter Checks" width="200">
+  <img src="docs/images/popup-dns.png" alt="Reiter DNS64" width="200">
+  <img src="docs/images/popup-dyndns.png" alt="Reiter DynDNS" width="200">
+</p>
+
+<sub>Screenshots mit Testdaten. Weitere Bilder, auch die für die Stores, liegen in [`docs/store`](docs/store).</sub>
 
 ## Funktionen
 
@@ -17,18 +24,27 @@ Inoffizielles Browser-Addon für [Node64](https://github.com/ipv64net/node64) un
 
 ## Installation
 
-### Chrome, Edge, Brave
-
-1. `chrome://extensions` öffnen und den **Entwicklermodus** einschalten.
-2. **Entpackte Erweiterung laden** und diesen Ordner wählen.
+Fertige Pakete für jede Version gibt es unter **[Releases](https://github.com/sakis-tech/node64-browser-extension/releases/latest)**: je eine ZIP für Chrome und für Firefox. Was sich geändert hat, steht im [Changelog](CHANGELOG.md).
 
 ### Firefox (ab 128)
 
-**[➜ Node64 Browser Extension bei Firefox Add-ons](https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/)** – dort auf **Zu Firefox hinzufügen** klicken. Updates kommen automatisch.
+**Empfohlen:** **[➜ Node64 Browser Extension bei Firefox Add-ons](https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/)** – dort auf **Zu Firefox hinzufügen** klicken. Updates kommen automatisch.
 
-Aus dem Quellcode (für Entwicklung): Firefox braucht ein leicht anderes Manifest, deshalb zuerst `python3 scripts/build.py` ausführen, dann `about:debugging#/runtime/this-firefox` → **Temporäres Add-on laden** → `dist/firefox/manifest.json` wählen (gilt bis zum Neustart).
+Aus der ZIP (zum Testen): Firefox installiert dauerhaft nur von Mozilla signierte Addons. Die ZIP aus den Releases lässt sich deshalb nur bis zum nächsten Neustart laden:
 
-Was sich in welcher Version geändert hat, steht im [Changelog](CHANGELOG.md).
+1. `node64-browser-extension-<Version>-firefox.zip` herunterladen (nicht entpacken).
+2. `about:debugging#/runtime/this-firefox` öffnen.
+3. **Temporäres Add-on laden …** klicken und die ZIP auswählen.
+
+### Chrome, Edge, Brave und andere Chromium-Browser
+
+Der Eintrag im Chrome Web Store ist eingereicht. Bis er freigeschaltet ist, so installieren:
+
+1. `node64-browser-extension-<Version>-chrome.zip` herunterladen und **entpacken**, am besten in einen Ordner, der dauerhaft bleibt (z. B. unter Dokumente). Der Browser lädt das Addon bei jedem Start aus diesem Ordner.
+2. `chrome://extensions` öffnen (Edge: `edge://extensions`, Brave: `brave://extensions`) und den **Entwicklermodus** einschalten.
+3. **Entpackte Erweiterung laden** und den entpackten Ordner wählen (der Ordner, in dem `manifest.json` liegt).
+
+Update auf eine neue Version: neue ZIP in denselben Ordner entpacken (alte Dateien ersetzen) und auf der Erweiterungsseite beim Addon auf **Neu laden** klicken. Die Einstellungen bleiben erhalten.
 
 ## Einrichtung
 
@@ -40,7 +56,13 @@ Die Adresse darf `http://` oder `https://` sein. Läuft Node64 per HTTPS mit ein
 
 ## Technik
 
-| Datei | Aufgabe |
+```
+src/              Quellcode des Addons (wird so in die ZIPs gepackt)
+scripts/          build.py (Pakete bauen), screenshots/ (Screenshots mit Testdaten)
+docs/             Bilder für README und Stores
+```
+
+| Datei in `src/` | Aufgabe |
 | --- | --- |
 | `manifest.json` | Manifest für Chrome (Service Worker) |
 | `manifest.firefox.json` | Abweichungen für Firefox (Hintergrundseite, Add-on-ID); `scripts/build.py` legt sie darüber |
@@ -60,15 +82,18 @@ Die Endpunkte stammen aus der OpenAPI-Beschreibung von Node64 (`/api/openapi.jso
 - `contextMenus` – die beiden Einträge im Rechtsklick-Menü.
 - Host-Zugriff: fest nur `https://ipv64.net/*`; die Adresse der eigenen Node wird beim Speichern einzeln angefragt.
 
-Das Addon sendet Daten ausschließlich an die eingetragene Node64 und an ipv64.net. Anfragen gehen ohne Cookies raus (`credentials: 'omit'`), die Sitzung des Web-UI wird nie mitbenutzt.
+Das Addon sendet Daten ausschließlich an die eingetragene Node64 und an ipv64.net. Anfragen gehen ohne Cookies raus (`credentials: 'omit'`), die Sitzung des Web-UI wird nie mitbenutzt. Details in der [Datenschutzerklärung](PRIVACY.md).
 
 ## Entwicklung
 
 ```sh
 python3 scripts/build.py                     # dist/chrome, dist/firefox und je ein ZIP
+python3 scripts/screenshots/make.py          # Screenshots neu erzeugen (braucht Playwright)
 npx web-ext lint --source-dir dist/firefox   # Prüfung für Firefox
 npx web-ext run --source-dir dist/firefox    # Firefox mit geladenem Addon starten
 ```
+
+Zum Entwickeln in Chrome direkt den Ordner `src/` als entpackte Erweiterung laden. Firefox braucht das zusammengesetzte Manifest, deshalb dort `dist/firefox/manifest.json` über **Temporäres Add-on laden** wählen.
 
 ## Lizenz
 

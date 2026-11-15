@@ -5,6 +5,7 @@ Was sich je Version ändert. Die installierte Version steht im Popup unten recht
 ## 0.2.2 – 2026-11-15
 
 - Popup: Die Versionen sind jetzt beschriftet – oben „Node64 v…“ für die Version der Node, unten rechts „Node64 Browser Extension v…“ für die Version des Addons.
+- Repository aufgeräumt: Der Quellcode liegt jetzt in `src/`, die Pakete gibt es als ZIP unter Releases. Neue Screenshots für README, Chrome Web Store und Firefox Add-ons (`docs/`). Am Addon selbst ändert sich dadurch nichts.
 
 ## 0.2.1 – 2026-11-15
 
