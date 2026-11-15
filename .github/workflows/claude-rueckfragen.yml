@@ -40,7 +40,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           NR: ${{ github.event.issue.number }}
-        run: gh issue view "$NR" --repo "$GITHUB_REPOSITORY" --comments > "$RUNNER_TEMP/issue.txt"
+        run: |
+          {
+            gh api "repos/$GITHUB_REPOSITORY/issues/$NR" \
+              --jq '"#\(.number) \(.title)\nVon: \(.user.login)\nLabels: \([.labels[].name] | join(", "))\n\n\(.body // "")\n"'
+            gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$NR/comments" \
+              --jq '.[] | "--- Kommentar von \(.user.login) (\(.created_at)):\n\(.body)\n"'
+          } > "$RUNNER_TEMP/issue.txt"
 
       - name: Claude liest das Issue
         id: claude
