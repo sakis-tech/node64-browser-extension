@@ -109,6 +109,8 @@ const settle = (list) => Promise.allSettled(list);
 const ok = (r) => (r.status === 'fulfilled' ? r.value : null);
 const openTab = (url) => chrome.tabs.create({ url });
 const uiLink = (path) => node.url + path;
+/** Node64 liefert nach einer Regeländerung sonst weiter die alte Antwort aus dem Cache. Fehler hier sind unkritisch. */
+const flushDns = () => node.post('/dns64/cache/flush').catch(() => {});
 
 function card(title, ...children) {
   return h('section', { class: 'card' }, title ? h('h2', {}, title) : null, children);
@@ -328,18 +330,61 @@ async function runCheck(btn, c, li, subEl) {
 
 /* ---------- DNS64 ---------- */
 
-async function activeDomain() {
+/** Offene Seite: Domain für die Regeln, dazu das, was die Adressleiste zeigt (Protokoll, Adresse, Favicon). */
+async function activePage() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    return N64.domainOf((tab && tab.url) || '');
+    const href = (tab && tab.url) || '';
+    const domain = N64.domainOf(href);
+    if (!domain) return null;
+    const u = new URL(href);
+    return {
+      domain, href, tabId: tab.id,
+      secure: u.protocol === 'https:', // Protokoll der tatsächlich geladenen Seite, nicht geraten
+      host: u.host,
+      rest: (u.pathname === '/' ? '' : u.pathname) + u.search,
+      favicon: /^(https?|data):/i.test(tab.favIconUrl || '') ? tab.favIconUrl : '',
+    };
   } catch {
-    return '';
+    return null;
   }
+}
+
+const ICON = {
+  lock: 'M7 11V8a5 5 0 0 1 10 0v3M6 11h12v9H6z',
+  warn: 'M12 4 2.5 20h19L12 4zM12 10v5M12 17.5v.5',
+  globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18',
+};
+function icon(name) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS(NS, 'path');
+  path.setAttribute('d', ICON[name]);
+  svg.append(path);
+  return svg;
+}
+
+/** Adressleiste wie im Browser: Favicon, Schloss bzw. „Nicht sicher", Adresse. */
+function urlBar(page) {
+  let fav = icon('globe');
+  if (page.favicon) {
+    const img = h('img', { src: page.favicon, alt: '', width: 16, height: 16, referrerpolicy: 'no-referrer' });
+    img.addEventListener('error', () => img.replaceWith(icon('globe')));
+    fav = img;
+  }
+  return h('div', { class: 'urlbar', title: page.href },
+    fav,
+    h('span', { class: 'scheme ' + (page.secure ? 'ok' : 'bad'), title: t(page.secure ? 'siteSecure' : 'siteInsecure') },
+      icon(page.secure ? 'lock' : 'warn'), page.secure ? null : t('siteInsecureShort')),
+    h('span', { class: 'url' }, h('b', {}, page.host), page.rest));
 }
 
 async function renderDns(seq) {
   if (!node) return [card('DNS64', h('div', { class: 'empty' }, t('needsNode')))];
-  const domain = await activeDomain();
+  const page = await activePage();
+  const domain = page ? page.domain : '';
   const [st, sm, bl, site, al, dl] = await settle([
     node.get('/dns64/status'), node.get('/dns64/summary', { range: '24h' }),
     node.get('/dns64/log', { status: 'blocked', limit: 60 }),
@@ -400,6 +445,12 @@ async function renderDns(seq) {
   if (domain) {
     const rows = ((ok(site) && ok(site).rows) || []).filter((r) => r.domain === domain || String(r.domain).endsWith('.' + domain));
     const blocked = rows.filter((r) => r.status === 'blocked').length;
+    // Was sagt das Log? Jüngste Anfrage für genau diese Domain entscheidet, ob sie gerade blockiert wird.
+    const known = site.status === 'fulfilled';
+    const when = (r) => { const ms = typeof r.t === 'number' ? r.t : Date.parse(r.t); return Number.isFinite(ms) ? ms : 0; };
+    const last = rows.filter((r) => r.domain === domain).reduce((a, r) => (!a || when(r) > when(a) ? r : a), null);
+    const canAllow = !known || !rows.length || blocked > 0;         // nichts blockiert -> Freigeben unnötig; ohne Logeinträge unbekannt
+    const canDeny = !known || !(last && last.status === 'blocked'); // schon blockiert -> Sperren unnötig
     // Eigene Regel: Einträge gelten samt Subdomains, daher auch übergeordnete Domains prüfen.
     const covers = (list) => ((ok(list) || []).map((x) => x && x.domain).filter(Boolean).find((d) => domain === d || domain.endsWith('.' + d))) || '';
     const allowedBy = covers(al), deniedBy = covers(dl);
@@ -407,23 +458,24 @@ async function renderDns(seq) {
     const change = (method, list, dom, kind, msg) => (e) => act(e.currentTarget, async () => {
       if (method === 'add') await node.post('/dns64/' + list, { domain: dom });
       else await node.del('/dns64/' + list, { domain: dom });
+      await flushDns();
+      // Seite ohne Browser-Cache neu laden, damit die Änderung sichtbar wird.
+      if (page.tabId !== undefined) await chrome.tabs.reload(page.tabId, { bypassCache: true }).catch(() => {});
       flash('site', kind);
       await refresh();
     }, t(msg, dom));
     const siteCard = card(t('thisSite'),
-      h('div', { style: 'display:flex;align-items:center;gap:8px' },
-        h('span', { class: 'main', style: 'flex:1;min-width:0' },
-          h('span', { class: 'name mono', style: 'display:block;overflow:hidden;text-overflow:ellipsis' }, domain),
-          h('span', { class: 'sub muted small' }, site.status === 'rejected' ? errText(site.reason) : rows.length ? t('siteStats', rows.length, blocked) : t('siteNoQueries'))),
-        h('span', { class: 'pill big ' + (rule === 'deny' ? 'down' : rule === 'allow' ? 'up' : ''), title: deniedBy || allowedBy },
-          rule === 'deny' ? t('ruleDenied') : rule === 'allow' ? t('ruleAllowed') : t('ruleNone'))),
+      urlBar(page),
+      h('div', { style: 'display:flex;align-items:center;gap:8px;margin-top:8px' },
+        h('span', { class: 'muted small', style: 'flex:1;min-width:0' }, site.status === 'rejected' ? errText(site.reason) : rows.length ? t('siteStats', rows.length, blocked) : t('siteNoQueries')),
+        rule ? h('span', { class: 'pill big ' + (rule === 'deny' ? 'down' : 'up'), title: deniedBy || allowedBy },
+          rule === 'deny' ? t('ruleDenied') : t('ruleAllowed')) : null),
+      // Je Zustand nur die Aktionen, die etwas ändern: ohne Regel beide, mit Regel nur das Entfernen.
       h('div', { class: 'btnrow' },
-        rule === 'allow'
-          ? h('button', { class: 'btn', onclick: change('del', 'allowlist', allowedBy, 'warn', 'toastUnallowed') }, t('unallow'))
-          : h('button', { class: 'btn', onclick: change('add', 'allowlist', domain, 'ok', 'toastAllowed') }, t('allow')),
-        rule === 'deny'
-          ? h('button', { class: 'btn', onclick: change('del', 'denylist', deniedBy, 'warn', 'toastUndenied') }, t('undeny'))
-          : h('button', { class: 'btn danger', onclick: change('add', 'denylist', domain, 'bad', 'toastDenied') }, t('deny'))));
+        rule === 'deny' ? h('button', { class: 'btn', onclick: change('del', 'denylist', deniedBy, 'warn', 'toastUndenied') }, t('undeny'))
+          : rule === 'allow' ? h('button', { class: 'btn', onclick: change('del', 'allowlist', allowedBy, 'warn', 'toastUnallowed') }, t('unallow'))
+          : [h('button', { class: 'btn', disabled: !canAllow, title: canAllow ? null : t('allowNotNeeded'), onclick: change('add', 'allowlist', domain, 'ok', 'toastAllowed') }, t('allow')),
+            h('button', { class: 'btn danger', disabled: !canDeny, title: canDeny ? null : t('denyNotNeeded'), onclick: change('add', 'denylist', domain, 'bad', 'toastDenied') }, t('deny'))]));
     siteCard.dataset.key = 'site';
     out.push(siteCard);
   }
@@ -439,7 +491,7 @@ async function renderDns(seq) {
       h('span', { class: 'main', title: r.reason || '' },
         h('span', { class: 'name mono' }, r.domain),
         h('span', { class: 'sub' }, [r.clientName || r.client, ago(r.t), r.n > 1 ? '×' + r.n : ''].filter(Boolean).join(' · '))),
-      h('button', { class: 'btn mini', onclick: (e) => act(e.currentTarget, async () => { await node.post('/dns64/allowlist', { domain: r.domain }); flash('blk:' + r.domain, 'ok'); await refresh(); }, t('toastAllowed', r.domain)) }, t('allow')))))
+      h('button', { class: 'btn mini', onclick: (e) => act(e.currentTarget, async () => { await node.post('/dns64/allowlist', { domain: r.domain }); await flushDns(); flash('blk:' + r.domain, 'ok'); await refresh(); }, t('toastAllowed', r.domain)) }, t('allow')))))
       : h('div', { class: 'empty' }, bl.status === 'rejected' ? errText(bl.reason) : t('noneBlocked')),
     h('div', { class: 'btnrow' },
       h('button', { class: 'btn', onclick: (e) => act(e.currentTarget, () => node.post('/dns64/cache/flush'), t('toastFlushed')) }, t('flushCache')),

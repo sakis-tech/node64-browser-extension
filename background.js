@@ -98,7 +98,7 @@ function setupMenus() {
   });
 }
 
-chrome.contextMenus.onClicked.addListener(async (info) => {
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   const domain = N64.domainOf(info.linkUrl || info.pageUrl || '');
   const cfg = await N64.getConfig();
   const node = N64.node(cfg);
@@ -114,6 +114,10 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   const allow = info.menuItemId === 'n64-allow';
   try {
     await node.post(allow ? '/dns64/allowlist' : '/dns64/denylist', { domain });
+    // Sonst liefert Node64 weiter die alte Antwort aus dem Cache.
+    await node.post('/dns64/cache/flush').catch(() => {});
+    // Betrifft die Regel die Seite selbst (nicht einen Link darauf), ohne Browser-Cache neu laden.
+    if (!info.linkUrl && tab && tab.id !== undefined) await chrome.tabs.reload(tab.id, { bypassCache: true }).catch(() => {});
     say(t(allow ? 'toastAllowed' : 'toastDenied', domain), true);
   } catch (e) {
     say(t('errorGeneric', e.message), false);

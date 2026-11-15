@@ -332,6 +332,24 @@
   "optNoPermission": {
     "message": "Without access to this address the add-on cannot query the node."
   },
+  "siteSecure": {
+    "message": "Encrypted connection (HTTPS)"
+  },
+  "siteInsecure": {
+    "message": "Unencrypted connection (HTTP)"
+  },
+  "siteInsecureShort": {
+    "message": "Not secure"
+  },
+  "allowNotNeeded": {
+    "message": "Not needed: according to the log nothing from this site is blocked."
+  },
+  "denyNotNeeded": {
+    "message": "Not needed: according to the log this site is already blocked."
+  },
+  "optNotNode": {
+    "message": "No Node64 API is answering at this address. Check address and port."
+  },
   "optNodeOk": {
     "message": "Connected to $1 (version $2) as $3."
   },

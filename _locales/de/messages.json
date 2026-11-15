@@ -332,6 +332,24 @@
   "optNoPermission": {
     "message": "Ohne Zugriff auf diese Adresse kann das Addon die Node nicht abfragen."
   },
+  "siteSecure": {
+    "message": "Verschlüsselte Verbindung (HTTPS)"
+  },
+  "siteInsecure": {
+    "message": "Unverschlüsselte Verbindung (HTTP)"
+  },
+  "siteInsecureShort": {
+    "message": "Nicht sicher"
+  },
+  "allowNotNeeded": {
+    "message": "Nicht nötig: Laut Log wird von dieser Seite nichts blockiert."
+  },
+  "denyNotNeeded": {
+    "message": "Nicht nötig: Diese Seite wird laut Log bereits blockiert."
+  },
+  "optNotNode": {
+    "message": "Unter dieser Adresse antwortet keine Node64-API. Adresse und Port prüfen."
+  },
   "optNodeOk": {
     "message": "Verbunden mit $1 (Version $2) als $3."
   },

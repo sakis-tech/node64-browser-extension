@@ -143,3 +143,15 @@ a.rowlink:hover .name { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) {
   #progress.on, .btn.busy::after, .rows li.running .dot, #toast, #stamp.blink, .btn.failed { animation: none; }
 }
+/* hidden muss auch bei Elementen mit eigenem display greifen (z. B. #tabs) */
+[hidden] { display: none !important; }
+/* „Diese Seite" als Adressleiste */
+.urlbar { display: flex; align-items: center; gap: 7px; min-width: 0; padding: 5px 11px 5px 8px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); }
+.urlbar img, .urlbar svg { width: 16px; height: 16px; flex: none; }
+.urlbar img { border-radius: 3px; }
+.urlbar svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); }
+.urlbar .scheme { display: flex; align-items: center; gap: 4px; flex: none; font-size: 11.5px; font-weight: 600; }
+.urlbar .scheme.ok, .urlbar .scheme.ok svg { color: var(--up); }
+.urlbar .scheme.bad, .urlbar .scheme.bad svg { color: var(--down); }
+.urlbar .url { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+.urlbar .url b { color: var(--text); font-weight: 600; }

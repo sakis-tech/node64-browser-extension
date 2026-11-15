@@ -49,7 +49,13 @@ async function testNode() {
   try {
     const node = N64.node(cfg);
     const [v, me] = await Promise.all([node.get('/version'), node.get('/users/me')]);
-    show(out, t('optNodeOk', (v && v.hostname) || cfg.nodeUrl, (v && v.version) || '?', (me && me.username) || '?'), true);
+    // Antwort 200 ohne JSON (z. B. die Seite eines anderen Dienstes) ist keine Node64-API.
+    if (!v || typeof v !== 'object' || !v.version) return show(out, t('optNotNode'), false);
+    // Erfolgreich getestet = gespeichert, sonst bleibt das Popup trotz grünem Test leer.
+    await chrome.storage.local.set({ nodeUrl: cfg.nodeUrl, nodeKey: cfg.nodeKey });
+    $('nodeUrl').value = cfg.nodeUrl;
+    chrome.runtime.sendMessage({ type: 'poll' }).catch(() => {});
+    show(out, t('optNodeOk', v.hostname || cfg.nodeUrl, v.version, (me && me.username) || '?') + ' ' + t('saved'), true);
   } catch (e) {
     show(out, errText(e), false);
   }
@@ -64,7 +70,9 @@ async function testCloud() {
   if (!(await granted)) return show(out, t('optNoPermission'), false);
   try {
     const me = await N64.ipv64(cfg).get('/me');
-    show(out, t('optCloudOk', (me && (me.username || me.email)) || '?', (me && me.plan && me.plan.name) || '?'), true);
+    await chrome.storage.local.set({ ipv64Key: cfg.ipv64Key });
+    chrome.runtime.sendMessage({ type: 'poll' }).catch(() => {});
+    show(out, t('optCloudOk', (me && (me.username || me.email)) || '?', (me && me.plan && me.plan.name) || '?') + ' ' + t('saved'), true);
   } catch (e) {
     show(out, errText(e), false);
   }
