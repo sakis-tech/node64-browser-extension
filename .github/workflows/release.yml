@@ -1,14 +1,20 @@
 # Legt einen GitHub-Release an, sobald src/manifest.json eine Version hat, für die es noch keinen
-# Release gibt: baut die ZIPs mit scripts/build.py, erstellt den Tag v<Version> und nimmt den
+# Release gibt: baut die ZIPs mit .github/scripts/build.py, erstellt den Tag v<Version> und nimmt den
 # passenden Abschnitt aus CHANGELOG.md als Text. Lädt die Version danach zu Firefox Add-ons und in den
 # Chrome Web Store hoch.
-# Läuft bei jedem Push auf main (oder von Hand).
+# Läuft bei jedem Push auf main (oder von Hand). Von Hand mit Haken „chrome_upload“ lädt er die aktuelle
+# Version auch dann in den Chrome Web Store, wenn es den Release schon gibt.
 name: Release
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      chrome_upload:
+        description: "Aktuelle Version in den Chrome Web Store hochladen, auch wenn es den Release schon gibt"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -42,8 +48,8 @@ jobs:
           fi
 
       - name: ZIPs bauen
-        if: steps.check.outputs.new == 'true'
-        run: python3 scripts/build.py
+        if: steps.check.outputs.new == 'true' || inputs.chrome_upload
+        run: python3 .github/scripts/build.py
 
       - name: Release-Text aus dem Changelog
         if: steps.check.outputs.new == 'true'
@@ -94,12 +100,12 @@ jobs:
           --api-secret "$AMO_JWT_SECRET"
 
       # Lädt die Chrome-ZIP in den Chrome Web Store hoch und reicht sie zur Prüfung ein
-      # (scripts/chrome_upload.py, Chrome Web Store API V2 mit Dienstkonto). Google prüft danach noch.
+      # (.github/scripts/chrome_upload.py, Chrome Web Store API V2 mit Dienstkonto). Google prüft danach noch.
       # Läuft nur, wenn die Secrets CWS_SERVICE_ACCOUNT_JSON und CWS_PUBLISHER_ID gesetzt sind.
       - name: In den Chrome Web Store hochladen
-        if: steps.check.outputs.new == 'true' && env.CWS_SERVICE_ACCOUNT_JSON != '' && env.CWS_PUBLISHER_ID != ''
+        if: (steps.check.outputs.new == 'true' || inputs.chrome_upload) && env.CWS_SERVICE_ACCOUNT_JSON != '' && env.CWS_PUBLISHER_ID != ''
         env:
           TAG: ${{ steps.check.outputs.tag }}
         run: |
           pip install --quiet google-auth requests
-          python3 scripts/chrome_upload.py "dist/node64-browser-extension-${TAG#v}-chrome.zip"
+          python3 .github/scripts/chrome_upload.py "dist/node64-browser-extension-${TAG#v}-chrome.zip"

@@ -7,7 +7,7 @@ Firefox werden die Schlüssel aus src/manifest.firefox.json darübergelegt
 import json, shutil, zipfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "src"
 FILES = ["background.js", "popup.html", "popup.css", "popup.js", "options.html", "options.js"]
 DIRS = ["lib", "icons", "_locales"]

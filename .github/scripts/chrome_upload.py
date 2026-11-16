@@ -7,7 +7,7 @@ Umgebungsvariablen:
   CWS_SERVICE_ACCOUNT_JSON  Inhalt der JSON-Schlüsseldatei des Dienstkontos
   CWS_PUBLISHER_ID          Publisher-ID aus dem Chrome Web Store Developer Dashboard (Bereich „Konto“)
 
-Aufruf: python3 scripts/chrome_upload.py dist/node64-browser-extension-<Version>-chrome.zip
+Aufruf: python3 .github/scripts/chrome_upload.py dist/node64-browser-extension-<Version>-chrome.zip
 """
 import json
 import os

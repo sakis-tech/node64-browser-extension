@@ -1,6 +1,6 @@
 # Store-Bilder
 
-Alle Bilder zeigen das echte Popup bzw. die echten Einstellungen mit **erfundenen Testdaten** (Dokumentations-IPs, `example.*`-Domains). Neu erzeugen: `python3 scripts/screenshots/make.py` (siehe Kommentar im Skript).
+Alle Bilder zeigen das echte Popup bzw. die echten Einstellungen mit **erfundenen Testdaten** (Dokumentations-IPs, `example.*`-Domains).
 
 ## Chrome Web Store – `chrome/de`, `chrome/en`
 

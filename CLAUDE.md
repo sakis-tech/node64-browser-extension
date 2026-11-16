@@ -8,7 +8,8 @@ Inoffizielles Browser-Addon für Node64 (ipv64net/node64) und ipv64.net, für Fi
   - `manifest.json` (Chrome), `manifest.firefox.json` (Abweichungen für Firefox, wird beim Bauen darübergelegt)
   - `lib/api.js` Node64- und ipv64.net-API, `background.js` Polling/Badge/Benachrichtigungen/Kontextmenü, `popup.*`, `options.*`
   - `_locales/de` und `_locales/en` – **jeder neue Text in beide Sprachen**
-- `scripts/build.py` baut `dist/chrome`, `dist/firefox` und die ZIPs. `scripts/screenshots/` erzeugt Bilder mit Testdaten.
+- `.github/scripts/build.py` baut `dist/chrome`, `dist/firefox` und die ZIPs, `.github/scripts/chrome_upload.py` lädt in den Chrome Web Store hoch.
+- Das README ist nur für Nutzer: keine Abschnitte zu Entwicklung, Aufbau oder Workflows dort einfügen.
 - `docs/` Bilder und Store-Texte, `CHANGELOG.md`, `PRIVACY.md`.
 
 ## Regeln für Änderungen
@@ -25,7 +26,7 @@ Inoffizielles Browser-Addon für Node64 (ipv64net/node64) und ipv64.net, für Fi
 
 1. Patch-Version in `src/manifest.json` um eins erhöhen (z. B. 0.2.2 → 0.2.3).
 2. In `CHANGELOG.md` oben einen Abschnitt `## <Version> – <JJJJ-MM-TT>` mit kurzen, verständlichen Stichpunkten auf Deutsch ergänzen, mit Verweis auf das Issue (`#12`).
-3. `python3 scripts/build.py` und `npx --yes web-ext@10 lint --source-dir dist/firefox` müssen ohne Fehler durchlaufen.
+3. `python3 .github/scripts/build.py` und `npx --yes web-ext@10 lint --source-dir dist/firefox` müssen ohne Fehler durchlaufen.
 
 Nach dem Merge auf `main` legt `.github/workflows/release.yml` den GitHub-Release an und lädt die Version zu Firefox Add-ons und in den Chrome Web Store hoch (Chrome nur, wenn die Secrets `CWS_SERVICE_ACCOUNT_JSON` und `CWS_PUBLISHER_ID` gesetzt sind).
 

@@ -59,14 +59,14 @@ jobs:
             1. Neuen Branch anlegen: claude/issue-${{ github.event.issue.number }}
             2. Ursache im Code finden und mit einer kleinen, gezielten Änderung beheben.
             3. Patch-Version in src/manifest.json erhöhen und Abschnitt im CHANGELOG.md ergänzen (Format siehe CHANGELOG.md, Datum von heute, Verweis auf #${{ github.event.issue.number }}).
-            4. Prüfen: python3 scripts/build.py und npx --yes web-ext@10 lint --source-dir dist/firefox (keine Fehler).
+            4. Prüfen: python3 .github/scripts/build.py und npx --yes web-ext@10 lint --source-dir dist/firefox (keine Fehler).
             5. Committen, Branch pushen und mit gh pr create einen Pull Request gegen main öffnen.
                Titel: kurze Beschreibung des Fixes. Text auf Deutsch, für Nicht-Programmierer verständlich:
                was war kaputt, was wurde geändert, wie kann man es testen. Am Ende: "Closes #${{ github.event.issue.number }}".
             Wenn du die Ursache nicht sicher findest: keine geratenen Änderungen, sondern im Issue erklären, was fehlt, und keinen PR öffnen.
           claude_args: >-
             --max-turns 60
-            --allowedTools "Read,Glob,Grep,Edit,MultiEdit,Write,Bash(git checkout:*),Bash(git switch:*),Bash(git status:*),Bash(git diff:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(git log:*),Bash(python3 scripts/build.py),Bash(npx --yes web-ext@10 lint:*),Bash(gh pr create:*),Bash(gh issue comment:*),Bash(date:*)"
+            --allowedTools "Read,Glob,Grep,Edit,MultiEdit,Write,Bash(git checkout:*),Bash(git switch:*),Bash(git status:*),Bash(git diff:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(git log:*),Bash(python3 .github/scripts/build.py),Bash(npx --yes web-ext@10 lint:*),Bash(gh pr create:*),Bash(gh issue comment:*),Bash(date:*)"
 
       - name: Label wieder entfernen
         if: always()
