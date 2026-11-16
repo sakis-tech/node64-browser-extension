@@ -24,7 +24,12 @@ Inoffizielles Browser-Addon für [Node64](https://github.com/ipv64net/node64) un
 
 ## Installation
 
-Fertige Pakete für jede Version gibt es unter **[Releases](https://github.com/sakis-tech/node64-browser-extension/releases/latest)**: je eine ZIP für Chrome und für Firefox. Was sich geändert hat, steht im [Changelog](CHANGELOG.md).
+Am einfachsten über die Stores – dort kommen Updates automatisch:
+
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/bjcjjbcpkmmfaaebjgoaiobjhakhoima?label=Chrome%20Web%20Store&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/node64-browser-extension/bjcjjbcpkmmfaaebjgoaiobjhakhoima)
+[![Firefox Add-ons](https://img.shields.io/amo/v/node64-browser-extension?label=Firefox%20Add-ons&logo=firefoxbrowser&logoColor=white)](https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/)
+
+Fertige Pakete für jede Version gibt es außerdem unter **[Releases](https://github.com/sakis-tech/node64-browser-extension/releases/latest)**: je eine ZIP für Chrome und für Firefox. Was sich geändert hat, steht im [Changelog](CHANGELOG.md).
 
 ### Firefox (ab 128)
 
@@ -38,13 +43,18 @@ Aus der ZIP (zum Testen): Firefox installiert dauerhaft nur von Mozilla signiert
 
 ### Chrome, Edge, Brave und andere Chromium-Browser
 
-Der Eintrag im Chrome Web Store ist eingereicht. Bis er freigeschaltet ist, so installieren:
+**Empfohlen:** **[➜ Node64 Browser Extension im Chrome Web Store](https://chromewebstore.google.com/detail/node64-browser-extension/bjcjjbcpkmmfaaebjgoaiobjhakhoima)** – dort auf **Hinzufügen** klicken. Updates kommen automatisch. Das funktioniert auch in Edge, Brave und anderen Chromium-Browsern (Edge fragt einmalig, ob Erweiterungen aus anderen Stores erlaubt werden sollen).
+
+<details>
+<summary>Aus der ZIP (ohne Store, z. B. zum Testen)</summary>
 
 1. `node64-browser-extension-<Version>-chrome.zip` herunterladen und **entpacken**, am besten in einen Ordner, der dauerhaft bleibt (z. B. unter Dokumente). Der Browser lädt das Addon bei jedem Start aus diesem Ordner.
 2. `chrome://extensions` öffnen (Edge: `edge://extensions`, Brave: `brave://extensions`) und den **Entwicklermodus** einschalten.
 3. **Entpackte Erweiterung laden** und den entpackten Ordner wählen (der Ordner, in dem `manifest.json` liegt).
 
 Update auf eine neue Version: neue ZIP in denselben Ordner entpacken (alte Dateien ersetzen) und auf der Erweiterungsseite beim Addon auf **Neu laden** klicken. Die Einstellungen bleiben erhalten.
+
+</details>
 
 ## Einrichtung
 

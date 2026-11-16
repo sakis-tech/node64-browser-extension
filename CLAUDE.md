@@ -27,7 +27,12 @@ Inoffizielles Browser-Addon für Node64 (ipv64net/node64) und ipv64.net, für Fi
 2. In `CHANGELOG.md` oben einen Abschnitt `## <Version> – <JJJJ-MM-TT>` mit kurzen, verständlichen Stichpunkten auf Deutsch ergänzen, mit Verweis auf das Issue (`#12`).
 3. `python3 scripts/build.py` und `npx --yes web-ext@10 lint --source-dir dist/firefox` müssen ohne Fehler durchlaufen.
 
-Nach dem Merge auf `main` legt `.github/workflows/release.yml` den GitHub-Release an und lädt die Version zu Firefox Add-ons hoch.
+Nach dem Merge auf `main` legt `.github/workflows/release.yml` den GitHub-Release an und lädt die Version zu Firefox Add-ons und in den Chrome Web Store hoch (Chrome nur, wenn die Secrets `CWS_SERVICE_ACCOUNT_JSON` und `CWS_PUBLISHER_ID` gesetzt sind).
+
+## Store-Einträge
+
+- Firefox Add-ons: https://addons.mozilla.org/de/firefox/addon/node64-browser-extension/
+- Chrome Web Store: https://chromewebstore.google.com/detail/node64-browser-extension/bjcjjbcpkmmfaaebjgoaiobjhakhoima (ID `bjcjjbcpkmmfaaebjgoaiobjhakhoima`)
 
 ## Ehrlichkeit
 
