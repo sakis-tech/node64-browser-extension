@@ -1,6 +1,6 @@
 # Store-Eintrag (Deutsch)
 
-Gleicher Text für Firefox Add-ons und Chrome Web Store. Bei Firefox Add-ons seit 15.11.2026 so eingetragen.
+Gleicher Text für Firefox Add-ons und Chrome Web Store. Bei Firefox Add-ons seit 15.11.2026 und im Chrome Web Store seit 17.11.2026 so eingetragen.
 
 ## Name
 
